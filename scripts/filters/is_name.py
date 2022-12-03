@@ -24,5 +24,5 @@ class IsNameFilter(BoundFilter):
                 await msg.answer("LOTIN HARFLARI va RAQAMLAR ishlatilishi mumkin, xolos!\nIltimos, to'g'irlab yozing...\n\nYoki to'xtating /cancel")
                 raise CancelHandler()
 
-        name = msg.text.replace(' ', '_') + "_by_lu_sticker_bot
+        name = msg.text.replace(' ', '_') + "_by_lu_sticker_bot"
         return {'sticker_set_name': name}
