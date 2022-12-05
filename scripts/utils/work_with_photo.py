@@ -10,7 +10,7 @@ async def processes_on_photo(m:Message, s:FSMContext):
     photo_file = m.photo[-1]
     await send_image(photo_file.file_id, m.from_user.full_name)
 
-    path = "/home/ubuntu/LUStick/scripts/utils/photos/file.png"
+    path = "/home/ubuntu/LU-Sticker-Bot/scripts/utils/photos/file.png"
     await photo_file.download(destination_file = path)
     opened_photo = Image.open(path)
 
