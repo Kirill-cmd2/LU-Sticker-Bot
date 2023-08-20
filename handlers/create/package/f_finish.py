@@ -1,9 +1,9 @@
 from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
 
-from config import admins_id, addition
+from config import addition
 from loader import DB, BOT
-from utils import stick
+from utils import stick, creating_mention
 
 
 async def finish(m:Message, s:FSMContext):
@@ -28,11 +28,8 @@ async def finish(m:Message, s:FSMContext):
                     reply_markup = stick)
 
 
-    for id in admins_id:
-        try:
-            await BOT.send_message(chat_id = id, text = f"{m.from_user.get_mention(as_html = True)}\n{m.from_user.id}\nCreated this stickerpack:\nt.me/addstickers/{name+addition}")
-        except:
-            pass
+    creating_mention(msg=m, text_to_user=f"{m.from_user.id}\nCreated this stickerpack:\nt.me/addstickers/{name+addition}")
+
 
     # DB.add_stickerpack_name(name = name, id = m.from_user.id)
 

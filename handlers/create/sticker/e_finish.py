@@ -2,9 +2,9 @@ from aiogram.dispatcher.storage import FSMContext
 from aiogram.types import Message
 from aiogram.utils.exceptions import InvalidStickersSet
 
-from config import admins_id, addition
+from config import addition
 from loader import BOT
-from utils import stick
+from utils import stick, creating_mention
 
 
 async def finish(m:Message, s:FSMContext):
@@ -31,10 +31,6 @@ async def finish(m:Message, s:FSMContext):
     await m.answer(f"Stikeringizni qo'shdim!\nt.me/addstickers/{name}\n",
                     reply_markup = stick)
 
-    for id in admins_id:
-        try:
-            await BOT.send_message(chat_id = id, text = f"{m.from_user.get_mention(as_html = True)}\n{m.from_user.id}\nAdd sticker to this stickerpack:\nt.me/addstickers/{name+addition}")
-        except:
-            pass
+    await creating_mention(msg=m, text_to_user=f"{m.from_user.id}\nAdded sticker to this stickerpack:\nt.me/addstickers/{name+addition}")
 
     del name, emoji, photo

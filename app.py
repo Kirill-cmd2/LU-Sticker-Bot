@@ -1,7 +1,5 @@
-# learn using git
-# start controling versions
-# upload bot to server
-
+#LU Stick: instead of deleting messages just change inline message
+#write in working with photo and errors handler: with whom error occurred
 # add inline cancel button
 # update bot on server, install postgresql
 # change the way of saving photo's id in creating

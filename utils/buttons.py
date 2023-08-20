@@ -9,10 +9,17 @@ stick = InlineKeyboardMarkup(
         ],
         [
             InlineKeyboardButton(text="🗑 Stikerni o'chirish 🗑", callback_data='del:sticker')
-        ],
-        [
-            InlineKeyboardButton(text="Bekor qilish", callback_data='cancel')
         ]
     ],
     row_width=2,
+)
+
+cancel_button=InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text="Ortga", callback_data='goback'),
+            InlineKeyboardButton(text="Bekor qilish", callback_data='cancel')
+        ]
+    ],
+    row_width=2
 )
