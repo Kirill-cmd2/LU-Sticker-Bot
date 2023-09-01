@@ -5,7 +5,6 @@ from PIL import Image
 
 from config import admins_id
 from loader import DP
-from . import send_image
 # can send photo not document and in finish function use png_sticker
 
 async def processes_on_photo(m:Message, s:FSMContext):
@@ -23,10 +22,8 @@ async def processes_on_photo(m:Message, s:FSMContext):
 
     photo_file = m.photo[-1]
 
-    await send_image(photo_file.file_id, m.from_user.full_name)
-
     # await photo_file.download() - file will be downloaded to LU Stick Bot/
-    path = "/home/bubish/Desktop/Programming/Python/bots/LU Stick Bot/scripts/utils/photos/file.png"
+    path = "/home/bubish/Desktop/Programming/Python/bots/LU Stick Bot/utils/photos/file.png"
 
     try:
         await photo_file.download(destination_file = path)

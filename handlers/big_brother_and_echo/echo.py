@@ -2,7 +2,6 @@ from aiogram.dispatcher.storage import FSMContext
 from aiogram.types import ContentType, Message
 
 from loader import DP
-from utils import writing_logs
 
 
 @DP.message_handler(state="*")

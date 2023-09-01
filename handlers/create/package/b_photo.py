@@ -9,7 +9,7 @@ from utils import cnssStates, processes_on_photo
 async def cnss_photo(msg:Message, state:FSMContext):
     await msg.answer_chat_action('upload_document')
     await processes_on_photo(msg, state)
-    await msg.answer("Endi esa... yuborgan rasmingizni ifodalovchi emoji(lar) yuboring.:grinning_face:")
+    await msg.answer("Endi esa... yuborgan rasmingizni ifodalovchi emoji(lar) yuboring.😀")
 
     await cnssStates.cnss_emoji.set()
 

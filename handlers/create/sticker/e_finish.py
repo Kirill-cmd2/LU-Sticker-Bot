@@ -4,7 +4,7 @@ from aiogram.utils.exceptions import InvalidStickersSet
 
 from config import addition
 from loader import BOT
-from utils import stick, creating_mention
+from utils import stick
 
 
 async def finish(m:Message, s:FSMContext):
@@ -15,9 +15,10 @@ async def finish(m:Message, s:FSMContext):
 
     await s.finish()
 
+    name+=addition
     try:
         await BOT.add_sticker_to_set(user_id = m.from_user.id,
-            name = name+addition, emojis = emoji, png_sticker = photo)
+            name = name, emojis = emoji, png_sticker = photo)
 
     except InvalidStickersSet:
         del name, emoji, photo
@@ -30,7 +31,5 @@ async def finish(m:Message, s:FSMContext):
 
     await m.answer(f"Stikeringizni qo'shdim!\nt.me/addstickers/{name}\n",
                     reply_markup = stick)
-
-    await creating_mention(msg=m, text_to_user=f"{m.from_user.id}\nAdded sticker to this stickerpack:\nt.me/addstickers/{name+addition}")
 
     del name, emoji, photo
