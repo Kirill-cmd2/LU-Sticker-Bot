@@ -90,5 +90,3 @@ async def sending_message(msg:Message, state: FSMContext):
 
     except BotBlocked:
         await msg.answer("I was blocked by this user, so I can not send your message to the user")
-
-    del user_id

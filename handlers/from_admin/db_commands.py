@@ -9,5 +9,3 @@ from loader import DB, DP
 async def all_users(msg: Message):
     count_users = DB.count_users()[0]
     await msg.answer(f"There is {count_users} users")
-
-    del count_users

@@ -26,4 +26,3 @@ async def deleting_msg(msg: Message, state: FSMContext):
         await msg.answer("I could not delete it: something wrong in chat_id or msg_id")
 
     await state.finish()
-    del user_id, msg_id

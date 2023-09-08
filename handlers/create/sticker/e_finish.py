@@ -21,15 +21,11 @@ async def finish(m:Message, s:FSMContext):
             name = name, emojis = emoji, png_sticker = photo)
 
     except InvalidStickersSet:
-        del name, emoji, photo
         await m.answer("Xatolik yuz berdi!\nKechirasiz, bunday stikerpak yo'q!\nQaytadan urinib ko'ring:", reply_markup = stick)
         return
     except:
-        del name, emoji, photo
         await m.answer("Xatolik yuz berdi!\nQaytadan urinib ko'ring:", reply_markup = stick)
         return
 
     await m.answer(f"Stikeringizni qo'shdim!\nt.me/addstickers/{name}\n",
                     reply_markup = stick)
-
-    del name, emoji, photo

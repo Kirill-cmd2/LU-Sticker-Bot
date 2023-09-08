@@ -1,9 +1,8 @@
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.builtin import Command, CommandHelp, CommandStart
 from aiogram.types import Message, ReplyKeyboardRemove
-from sqlite3.dbapi2 import IntegrityError
 
-from loader import DB, DP
+from loader import DP
 from utils import rate_limit, stick, set_default_commands_with_language_code
 
 
@@ -15,12 +14,7 @@ async def start(msg: Message, state: FSMContext):
     await msg.answer(text = f"Salom, {msg.from_user.first_name}!\nNima qilay, xo'jayin?\nPastdagi tugmachalardan foydalaning!",
         reply_markup = stick)
 
-    await set_default_commands_with_language_code(DP.bot, msg.chat.id)
-
-    # try:
-    #     DB.add_user(id = msg.from_user.id, name = msg.from_user.full_name)
-    # except IntegrityError as err:
-    #     print(err)# - send to admin
+    # await set_default_commands_with_language_code(DP.bot, msg.chat.id)
 
 
 @rate_limit(10, 'menu')
@@ -61,5 +55,5 @@ async def cancel(msg: Message, state: FSMContext):
         text = "Bekor qilindi"
 
     await msg.reply(text, reply_markup = ReplyKeyboardRemove())
-    del name_of_state, text
+
     await state.finish()
