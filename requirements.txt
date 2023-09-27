@@ -1,4 +1,4 @@
 aiogram==2.23.1
-Pillow==7.0.0
+Pillow==10.0.1
 sqlite3
 re
