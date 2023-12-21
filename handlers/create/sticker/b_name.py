@@ -16,4 +16,5 @@ async def cnss_name(msg: Message, state: FSMContext, sticker_set_name):
 
 @DP.message_handler(state = anstsStates.ansts_name, content_types=ContentType.ANY)
 async def wrong_name(msg: Message):
+    # await msg.delete()
     await msg.answer("Iltimos, stikerpak nomini kiriting")

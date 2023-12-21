@@ -2,26 +2,29 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.builtin import Command, CommandHelp, CommandStart
 from aiogram.types import Message, ReplyKeyboardRemove
 
-from loader import DP
+from loader import DP#, DB
 from utils import rate_limit, stick, set_default_commands_with_language_code
 
 
 @rate_limit(10, 'start')
 @DP.message_handler(CommandStart(), state='*')
 async def start(msg: Message, state: FSMContext):
-    await state.finish()
     await msg.answer_sticker('CAACAgIAAxkBAAECoXlg_OYUFgPxhnc0CLO0epNhI8hPoQACJQADns6VGgABEDLTUjOmQyAE')
-    await msg.answer(text = f"Salom, {msg.from_user.first_name}!\nNima qilay, xo'jayin?\nPastdagi tugmachalardan foydalaning!",
+    await msg.answer(text = f"Salom, {msg.from_user.first_name}!\nNima qilay, xo'jayin?",
         reply_markup = stick)
+    
+    await msg.answer((await DP.bot.get_chat(msg.from_user.id)).get_mention(as_html=True))
 
     # await set_default_commands_with_language_code(DP.bot, msg.chat.id)
+
+    # await DB.add_user(msg.from_user.id, msg.from_user.username)
 
 
 @rate_limit(10, 'menu')
 @DP.message_handler(Command('menu'))
 async def menu(msg: Message, state: FSMContext):
-    await state.finish()
-    await msg.answer("Tanlang-tanlang. Barchasini bajaraman!\nPastdagi tugmachalardan foydalaning!", reply_markup = stick)
+    await msg.answer("Tanlang-tanlang. Barchasini bajaraman!",
+                     reply_markup = stick)
 
 
 @rate_limit(10, 'help')
@@ -51,8 +54,6 @@ async def cancel(msg: Message, state: FSMContext):
             text = "Yangi stiker yaratilishi bekor qilindi"
         elif name_of_state.__contains__('del'):
             text = "Stiker o'chirilishi bekor qilindi"
-    else:
-        text = "Bekor qilindi"
 
     await msg.reply(text, reply_markup = ReplyKeyboardRemove())
 

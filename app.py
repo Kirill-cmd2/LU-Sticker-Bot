@@ -1,31 +1,30 @@
+# send messages to users (save msg ids, admin_id who sent the msg)
+# what bytesio seek function do in python
+
 #remove pycache files from git control
-#LU Stick: instead of deleting messages just change inline message
-#write in working with photo and errors handler: with whom error occurred
-# add inline cancel button
-# function that will send image to admin, when admin sends id of photo
-# update bot on server, install postgresql
-# change the way of saving photo's id in creating
-# replace emojis with unicode
-# send user's log file to admin while requesting
-# upload bot to github (every month on 1st)
-# compare the Stick bot with other
 # auto-deleting unnecessary messages
-# moving back between handlers
+# instead of deleting messages just change inline message
+
+# study postgresql, gino, sqlalchemy
+# add postgresql to bot
+# update bot on server, install postgresql
+
 # create webhook
-# optimize working_with_photo - use IOBase instead of file saving
+# compare the Stick bot with other
+# improve errors handling and notifying
+# advance analytics of bot user interactions
+# moving back between handlers
 # change kirillic alphabet to latin one e.g. ф=f in correcr_name middleware
 # find all emoji storage
 
+# upload bot to github (every month on 1st)
 
-from loader import DB, DP
+from loader import DP
 import middlewares, filters, handlers
 
 
-async def on_start(DP):
-    try:
-        DB.create_table()
-    except Exception as err:
-        print("An error:", err)
+# async def on_start(DP):
+    # DB.create_table_users()
 
 
 async def shutdown(DP):
@@ -49,4 +48,4 @@ if __name__ == "__main__":
 # 2.1.3 - Changing setting of states 20/05/2023
 # 2.1.4 - cancel accepting same inline quiries
 
-__version__ = '2.1.5'
+__version__ = '2.1.6'

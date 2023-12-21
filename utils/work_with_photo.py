@@ -1,43 +1,29 @@
-from aiogram.types import InputFile, Message
-# from io import BytesIO
+from io import BytesIO
 from PIL import Image
 
-from config import admins_id
-from loader import DP
+from aiogram.types import InputFile, Message
 
 
-async def processes_on_photo(m:Message):
+async def processes_on_photo(msg: Message):
     """This function resizes width and heigt of image
 
-    m: aiogram.types.Message
+    msg: aiogram.types.Message object
     """
-    # source_message = m.reply_to_message
-    # photo = source_message.photo[-1]
-    # photo = await photo.download(destination = BytesIO())
-    # --resize photo--
-    # input_file = InputFile(path_or_bytesio = photo)
+    #creating BytesOI object
+    file_in_io = BytesIO()
 
+    # initializing file and downloading photo
+    photo_file = msg.photo[-1]
+    data = await photo_file.download(destination_file = file_in_io)
 
-    photo_file = m.photo[-1]
+    # converting _io.BytesIO to bytes-like object
+    data = data.getbuffer().tobytes()
 
-    # await photo_file.download() - file will be downloaded to LU Stick Bot/
-    path = "/home/bubish/Desktop/Programming/Python/bots/LU Stick Bot/utils/photos/file.png"
-
-    try:
-        await photo_file.download(destination_file = path)
-    except:
-        try:
-            for id in admins_id:
-                await DP.bot.send_message(chat_id = id, text = "Some error occured in working_with_photo while downloading photo")
-        except:
-            pass
-
-    opened_photo = Image.open(path)
-
+    opened_photo = Image.open(BytesIO(data))
     width, height = opened_photo.size
 
     if width < 512 and height < 512:
-        resized_photo = opened_photo.resize([512, 512], Image.ANTIALIAS)
+        opened_photo.resize([512, 512], Image.ANTIALIAS)
 
     else:
         if width > height:
@@ -49,11 +35,16 @@ async def processes_on_photo(m:Message):
             max_size = (512, 512)
 
         opened_photo.thumbnail(max_size, Image.ANTIALIAS)
-        resized_photo = opened_photo
 
-#saving resized photo
-    resized_photo.save(fp = path, format = 'png')
+    #saving resized photo and giving name
+    opened_photo.save(fp = file_in_io, format = 'PNG')
+    file_in_io.name = "file.png"
 
-    file_id = await m.answer_document(InputFile(path_or_bytesio = path))
+    # !
+    file_in_io.seek(0)
 
-    return file_id.document.file_id
+    # sending a document (resized photo) to user
+    sent_file = await msg.answer_document(InputFile(path_or_bytesio = file_in_io))
+
+    # returning id of document
+    return sent_file.document.file_id

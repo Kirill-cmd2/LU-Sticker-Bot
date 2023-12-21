@@ -1,28 +1,30 @@
 from aiogram.dispatcher.filters.builtin import Command
 from aiogram.dispatcher.storage import FSMContext
 from aiogram.types import Message
+from aiogram.utils.exceptions import ChatNotFound, MessageToDeleteNotFound
 
-from config import admins_id
+from filters import IsAdminFilter
 from loader import DP
 
 
-@DP.message_handler(Command('delmsg', prefixes = '.'), chat_id = admins_id)
-async def getting_chat_id(msg: Message, state: FSMContext):
-    await state.update_data(chat_id = msg.text[8:])
-    await state.set_state('wm_id')
-    await msg.answer("Send me Message ID")
+@DP.message_handler(Command('delmsg', prefixes = '.'), IsAdminFilter())
+async def delete_msg(msg: Message, state: FSMContext):
+    """
+    Function for deleting message
 
-
-@DP.message_handler(state = 'wm_id')
-async def deleting_msg(msg: Message, state: FSMContext):
-    async with state.proxy() as data:
-        user_id = data['chat_id']
-    msg_id = int(msg.text)
+    chat_id: int - chat's id where message to be delete is located
+    msg_id: int - id of message to be deleted
+    """
+    parts_of_msg = msg.text.split(' ')
+    chat_id = int(parts_of_msg[1])
+    msg_id = int(parts_of_msg[2])
 
     try:
-        await DP.bot.delete_message(chat_id = user_id, message_id = msg_id)
-        await msg.answer("I have delete it")
-    except:
-        await msg.answer("I could not delete it: something wrong in chat_id or msg_id")
+        await DP.bot.delete_message(chat_id = chat_id, message_id = msg_id)
+        await msg.answer("I have deleted it")
 
-    await state.finish()
+    except ChatNotFound:
+        await msg.answer("Error: Chat not found!")
+
+    except MessageToDeleteNotFound:
+        await msg.answer("Error: Message to delete not found!")

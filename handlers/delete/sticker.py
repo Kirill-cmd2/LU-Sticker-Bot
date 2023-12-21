@@ -11,8 +11,10 @@ async def del_stick(msg:Message, state:FSMContext):
 
     try:
         await msg.sticker.delete_from_set()
-        await msg.reply("O'chirib, yo'q qilib yubordim!")
 
     except:
         await msg.answer("Xatolik yuz berdi!\nUshbu stiker sizga tegishli emas! Iltimos, qaytadan boshlab o'zingiznikini yuboring",
             reply_markup = stick)
+    
+    else:
+        await msg.reply("O'chirib, yo'q qilib yubordim!")

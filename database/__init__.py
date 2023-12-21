@@ -1,1 +1,1 @@
-from .sqlite import MyDatabase
+from .postgresql import StickBotDatabase

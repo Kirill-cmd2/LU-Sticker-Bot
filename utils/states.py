@@ -16,7 +16,3 @@ class anstsStates(StatesGroup):
 # delete sticker States
 class delstickerStates(StatesGroup):
     delstick = State()
-
-# wait user ids
-class waitIDs(StatesGroup):
-    waitids = State()

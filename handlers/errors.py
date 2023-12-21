@@ -5,7 +5,7 @@ from aiogram.utils.exceptions import (Unauthorized, InvalidQueryID, TelegramAPIE
                                       CantParseEntities, MessageCantBeDeleted)
 
 from loader import DP
-from config import admins_id
+from utils import err_notify_admins
 
 
 @DP.errors_handler()
@@ -18,11 +18,7 @@ async def errors_handler(update, exception):
     :return: stdout logging
     """
 
-    try:
-        for id in admins_id:
-            await DP.bot.send_message(chat_id = id, text = "Some error occured!!!\nPlease, check logging and solve the problem")
-    except:
-        pass
+    await err_notify_admins("Some error occured!!!\nPlease, check logging and solve the problem")
 
     if isinstance(exception, CantDemoteChatCreator):
         logging.exception("Can't demote chat creator")
