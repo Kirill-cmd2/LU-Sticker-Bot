@@ -48,4 +48,4 @@ if __name__ == "__main__":
 # 2.1.3 - Changing setting of states 20/05/2023
 # 2.1.4 - cancel accepting same inline quiries
 
-__version__ = '2.1.6'
+__version__ = '2.1.7'
