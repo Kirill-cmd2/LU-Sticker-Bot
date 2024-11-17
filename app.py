@@ -1,24 +1,3 @@
-# send messages to users (save msg ids, admin_id who sent the msg)
-# what bytesio seek function do in python
-
-#remove pycache files from git control
-# auto-deleting unnecessary messages
-# instead of deleting messages just change inline message
-
-# study postgresql, gino, sqlalchemy
-# add postgresql to bot
-# update bot on server, install postgresql
-
-# create webhook
-# compare the Stick bot with other
-# improve errors handling and notifying
-# advance analytics of bot user interactions
-# moving back between handlers
-# change kirillic alphabet to latin one e.g. ф=f in correcr_name middleware
-# find all emoji storage
-
-# upload bot to github (every month on 1st)
-
 from loader import DP
 import middlewares, filters, handlers
 
@@ -48,4 +27,4 @@ if __name__ == "__main__":
 # 2.1.3 - Changing setting of states 20/05/2023
 # 2.1.4 - cancel accepting same inline quiries
 
-__version__ = '2.1.7'
+__version__ = '2.1.8'
