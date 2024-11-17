@@ -1,7 +1,6 @@
+from aiogram.types import InputFile, Message
 from io import BytesIO
 from PIL import Image
-
-from aiogram.types import InputFile, Message
 
 
 async def processes_on_photo(msg: Message):
@@ -40,7 +39,7 @@ async def processes_on_photo(msg: Message):
     opened_photo.save(fp = file_in_io, format = 'PNG')
     file_in_io.name = "file.png"
 
-    # !
+    # seek() function goes to given byte
     file_in_io.seek(0)
 
     # sending a document (resized photo) to user
