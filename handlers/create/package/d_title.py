@@ -8,7 +8,7 @@ from utils import cnssStates
 @DP.message_handler(state = cnssStates.cnss_title)
 async def cnss_title(msg:Message, state:FSMContext):
     await state.update_data(title = msg.text)
-    await msg.answer("Stikerpak ssilkasi uchun ishlatiladigan nomni kiriting:\n\nP.S. Faqat lotin harflari ishlatilishi kerak! Birinchi belgi lotin harfi bo'lishi shart. Raqamlarni ham ishlatish mumkin")
+    await msg.answer("Stikerpak ssilkasi uchun ishlatiladigan nomni kiriting:\n\nP.S. Faqat lotin harflari va raqamlar ishlatilishi kerak! Birinchi belgi lotin harfi bo'lishi shart.")
 
     await cnssStates.cnss_name.set()
 

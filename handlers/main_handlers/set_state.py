@@ -39,7 +39,7 @@ async def ansts_start(cq: CallbackQuery):
 @DP.callback_query_handler(text = 'del:sticker', state='*')
 async def wait_del_stick(cq:CallbackQuery):
     await cq.answer("Yubo-o-o-r!")
-    await cq.message.answer("Qaysi stikerni o'chirmoqchi bo'lsangiz shuni yuboring\nBu stiker sizga tegishli va aynan shu bot yordamida yaratilgan bo'lishi kerak\n/cancel - Bekor qilish")
+    await cq.message.answer("O'chirmoqchi bo'lgan stikeringizni yuboring\n\n P.S. Bu stiker sizga tegishli va aynan shu bot yordamida yaratilgan bo'lishi kerak\n\n/cancel - Bekor qilish")
 
     await delstickerStates.delstick.set() # goes to handlers -> delete -> sticker.py
 
