@@ -2,7 +2,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.builtin import Command, CommandHelp, CommandStart
 from aiogram.types import Message, ReplyKeyboardRemove
 
-from loader import DP#, DB
+from loader import DP
 from utils import rate_limit, stick, set_default_commands_with_language_code
 
 
@@ -16,8 +16,6 @@ async def start(msg: Message, state: FSMContext):
     await msg.answer((await DP.bot.get_chat(msg.from_user.id)).get_mention(as_html=True))
 
     # await set_default_commands_with_language_code(DP.bot, msg.chat.id)
-
-    # await DB.add_user(msg.from_user.id, msg.from_user.username)
 
 
 @rate_limit(10, 'menu')

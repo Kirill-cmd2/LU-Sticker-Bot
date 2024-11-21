@@ -1,12 +1,9 @@
+from aiogram import Dispatcher
 from loader import DP
 import middlewares, filters, handlers
 
 
-# async def on_start(DP):
-    # DB.create_table_users()
-
-
-async def shutdown(DP):
+async def shutdown(DP: Dispatcher):
     await DP.storage.close()
     await DP.storage.wait_closed()
 
@@ -14,7 +11,6 @@ async def shutdown(DP):
 if __name__ == "__main__":
     from aiogram.utils.executor import start_polling
     start_polling(dispatcher = DP,
-                # on_startup = on_start,
                 on_shutdown = shutdown,
                 skip_updates = True)
 
