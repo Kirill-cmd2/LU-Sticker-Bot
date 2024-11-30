@@ -10,3 +10,5 @@ admins_id = [
 admin_and_user = dict()
 
 addition = "_by_lu_for_test_bot"#by_lu_sticker_bot
+
+PHOTO_SIDE_MAX_SIZE = 512
