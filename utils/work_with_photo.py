@@ -1,45 +1,41 @@
 from aiogram.types import InputFile, PhotoSize
 from io import BytesIO
 from PIL import Image
+from config import PHOTO_SIDE_MAX_SIZE
 
 
 async def get_resized_photo(photo: PhotoSize):
     """This function resizes width and heigt of image
 
-    msg: aiogram.types.Message object
+    photo: aiogram.types.InputFile object
     """
 
     #creating BytesOI object
     file_in_io = BytesIO()
 
-    # initializing file and downloading photo
     data = await photo.download(destination_file = file_in_io)
 
-    # converting _io.BytesIO to bytes-like object
     data = data.getbuffer().tobytes()
 
     opened_photo = Image.open(BytesIO(data))
+
     width, height = opened_photo.size
 
-    if width < 512 and height < 512:
-        opened_photo.resize([512, 512], Image.ANTIALIAS)
+    if width > height:
+        new_width = PHOTO_SIDE_MAX_SIZE
+        new_height = int((height / width) * PHOTO_SIDE_MAX_SIZE)
+    elif height > width:
+        new_height = PHOTO_SIDE_MAX_SIZE
+        new_width = int((width / height) * PHOTO_SIDE_MAX_SIZE)
 
-    else:
-        if width > height:
-            max_size = (512, height)
+    resized_photo = opened_photo.resize((new_width, new_height), Image.ANTIALIAS)
 
-        elif width < height:
-            max_size = (width, 512)
-        else:
-            max_size = (512, 512)
+    out_photo = BytesIO()
 
-        opened_photo.thumbnail(max_size, Image.ANTIALIAS)
+    resized_photo.save(out_photo, format = "PNG")
 
-    #saving resized photo and giving name
-    opened_photo.save(fp = file_in_io, format = 'PNG')
-    file_in_io.name = "file.png"
+    out_photo.name = "file.png"
 
-    # seek() function goes to given byte
-    file_in_io.seek(0)
+    out_photo.seek(0)
 
-    return InputFile(file_in_io)
+    return InputFile(out_photo)
