@@ -10,22 +10,22 @@ async def get_resized_photo(photo: PhotoSize):
     photo: aiogram.types.InputFile object
     """
 
-    data = await photo.download(destination_file = BytesIO())
+    downloaded_photo: BytesIO = await photo.download(destination_file = BytesIO())
 
-    data = data.getbuffer().tobytes()
+    downloaded_photo_bytes = downloaded_photo.getbuffer().tobytes()
 
-    opened_photo = Image.open(BytesIO(data))
+    opened_photo: Image.Image = Image.open(BytesIO(downloaded_photo_bytes))
 
     new_size = get_new_side_sizes(opened_photo.size)
 
-    resized_photo = opened_photo.resize(new_size, Image.ANTIALIAS)
+    resized_photo: Image.Image = opened_photo.resize(new_size, Image.ANTIALIAS)
 
-    out_photo = BytesIO()
+    ready_photo = BytesIO()
 
-    resized_photo.save(out_photo, format = "PNG")
+    resized_photo.save(ready_photo, format = "PNG")
 
-    out_photo.name = "file.png"
+    ready_photo.name = "file.png"
 
-    out_photo.seek(0)
+    ready_photo.seek(0)
 
-    return InputFile(out_photo)
+    return InputFile(ready_photo)
