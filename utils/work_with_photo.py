@@ -1,19 +1,19 @@
-from aiogram.types import InputFile, Message
+from aiogram.types import InputFile, PhotoSize
 from io import BytesIO
 from PIL import Image
 
 
-async def processes_on_photo(msg: Message):
+async def get_resized_photo(photo: PhotoSize):
     """This function resizes width and heigt of image
 
     msg: aiogram.types.Message object
     """
+
     #creating BytesOI object
     file_in_io = BytesIO()
 
     # initializing file and downloading photo
-    photo_file = msg.photo[-1]
-    data = await photo_file.download(destination_file = file_in_io)
+    data = await photo.download(destination_file = file_in_io)
 
     # converting _io.BytesIO to bytes-like object
     data = data.getbuffer().tobytes()
@@ -42,8 +42,4 @@ async def processes_on_photo(msg: Message):
     # seek() function goes to given byte
     file_in_io.seek(0)
 
-    # sending a document (resized photo) to user
-    sent_file = await msg.answer_document(InputFile(path_or_bytesio = file_in_io))
-
-    # returning id of document
-    return sent_file.document.file_id
+    return InputFile(file_in_io)
