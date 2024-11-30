@@ -1,7 +1,8 @@
+from typing import Tuple
 from config import PHOTO_SIDE_MAX_SIZE
 
 
-def get_new_side_sizes(size: tuple[int, int]):
+def get_new_side_sizes(size: Tuple[int, int]):
     width, height = size
 
     if width > height:
