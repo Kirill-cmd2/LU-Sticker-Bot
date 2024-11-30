@@ -1,7 +1,7 @@
 from aiogram.types import InputFile, PhotoSize
 from io import BytesIO
 from PIL import Image
-from config import PHOTO_SIDE_MAX_SIZE
+from .photo_side_new_sizes import get_new_side_sizes
 
 
 async def get_resized_photo(photo: PhotoSize):
@@ -16,16 +16,9 @@ async def get_resized_photo(photo: PhotoSize):
 
     opened_photo = Image.open(BytesIO(data))
 
-    width, height = opened_photo.size
+    new_size = get_new_side_sizes(opened_photo.size)
 
-    if width > height:
-        new_width = PHOTO_SIDE_MAX_SIZE
-        new_height = int((height / width) * PHOTO_SIDE_MAX_SIZE)
-    elif height > width:
-        new_height = PHOTO_SIDE_MAX_SIZE
-        new_width = int((width / height) * PHOTO_SIDE_MAX_SIZE)
-
-    resized_photo = opened_photo.resize((new_width, new_height), Image.ANTIALIAS)
+    resized_photo = opened_photo.resize(new_size, Image.ANTIALIAS)
 
     out_photo = BytesIO()
 
