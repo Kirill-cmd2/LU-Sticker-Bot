@@ -10,10 +10,7 @@ async def get_resized_photo(photo: PhotoSize):
     photo: aiogram.types.InputFile object
     """
 
-    #creating BytesOI object
-    file_in_io = BytesIO()
-
-    data = await photo.download(destination_file = file_in_io)
+    data = await photo.download(destination_file = BytesIO())
 
     data = data.getbuffer().tobytes()
 
