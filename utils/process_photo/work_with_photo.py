@@ -1,7 +1,8 @@
-from aiogram.types import InputFile, PhotoSize
-from io import BytesIO
+from aiogram.types import PhotoSize
 from PIL import Image
-from .photo_side_new_sizes import get_new_side_sizes
+from .download_photo import download_photo
+from .resize_photo import resize_photo
+from .prepare_photo import get_ready_photo
 
 
 async def get_resized_photo(photo: PhotoSize):
@@ -10,22 +11,14 @@ async def get_resized_photo(photo: PhotoSize):
     photo: aiogram.types.InputFile object
     """
 
-    downloaded_photo: BytesIO = await photo.download(destination_file = BytesIO())
+    downloaded_photo = await download_photo(photo)
 
-    downloaded_photo_bytes = downloaded_photo.getbuffer().tobytes()
+    opened_photo: Image.Image = Image.open(downloaded_photo)
 
-    opened_photo: Image.Image = Image.open(BytesIO(downloaded_photo_bytes))
+    resized_photo = resize_photo(opened_photo)
 
-    new_size = get_new_side_sizes(opened_photo.size)
+    ready_photo = get_ready_photo(resized_photo,
+                                    photo_name = "file.png",
+                                    photo_format = "PNG")
 
-    resized_photo: Image.Image = opened_photo.resize(new_size, Image.ANTIALIAS)
-
-    ready_photo = BytesIO()
-
-    resized_photo.save(ready_photo, format = "PNG")
-
-    ready_photo.name = "file.png"
-
-    ready_photo.seek(0)
-
-    return InputFile(ready_photo)
+    return ready_photo
