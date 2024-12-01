@@ -11,5 +11,8 @@ def get_new_side_sizes(size: Tuple[int, int]):
     elif height > width:
         new_height = PHOTO_SIDE_MAX_SIZE
         new_width = int((width / height) * PHOTO_SIDE_MAX_SIZE)
+    elif width == height:
+        new_width = PHOTO_SIDE_MAX_SIZE
+        new_height = PHOTO_SIDE_MAX_SIZE
     
     return (new_width, new_height)
