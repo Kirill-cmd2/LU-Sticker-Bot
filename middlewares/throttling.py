@@ -5,8 +5,6 @@ from aiogram.dispatcher.handler import CancelHandler, current_handler
 from aiogram.dispatcher.middlewares import BaseMiddleware
 from aiogram.utils.exceptions import Throttled
 
-# await Update.get_current().bot.send_message(chat_id = id, text = "Some error happend...")
-
 
 class ThrottlingMiddleware(BaseMiddleware):
     """

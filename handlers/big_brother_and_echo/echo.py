@@ -1,19 +1,6 @@
-# from aiogram.dispatcher.storage import FSMContext
 from aiogram.types import ContentType, Message
 
 from loader import DP
-
-# def analytics:
-#    write to log file
-
-#@analytics
-# async def echo()
-
-
-# @DP.message_handler(state="*")
-# async def echo_text(msg:Message, state:FSMContext):
-#     user_state = await state.get_state()
-#     await writing_logs(msg.chat.id, f"State: {user_state} - {msg.text}")
 
 
 @DP.message_handler(state="*", content_types=ContentType.DOCUMENT)

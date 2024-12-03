@@ -13,9 +13,7 @@ async def start(msg: Message, state: FSMContext):
     await msg.answer(text = f"Salom, {msg.from_user.first_name}!\nNima qilay, xo'jayin?",
         reply_markup = stick)
     
-    await msg.answer((await DP.bot.get_chat(msg.from_user.id)).get_mention(as_html=True))
-
-    # await set_default_commands_with_language_code(DP.bot, msg.chat.id)
+    await set_default_commands_with_language_code(DP.bot, msg.chat.id)
 
 
 @rate_limit(10, 'menu')

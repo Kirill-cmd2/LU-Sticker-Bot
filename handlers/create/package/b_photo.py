@@ -22,5 +22,4 @@ async def cnss_photo(msg:Message, state:FSMContext):
 
 @DP.message_handler(state = cnssStates.cnss_photo, content_types = ContentType.ANY)
 async def wrong_photo(msg: Message):
-    # await msg.delete()
     await msg.answer("Iltimos, bitta RASM yuboring!\n\nYoki to'xtating /cancel")
